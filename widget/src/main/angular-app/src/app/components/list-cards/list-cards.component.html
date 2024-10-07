@@ -1,0 +1,194 @@
+<po-page-default>
+  <div class="po-row">
+    <div class="po-mt-2 po-md-12 po-sm-12 po-text-center green-background">
+      <font class="po-font-title"
+        >Painel de Transferencia de Usuarios - Combio</font
+      >
+    </div>
+    <div
+      class="po-offset-lg-11 po-offset-xl-11 po-xl-4 po-lg-4 po-md-6 po-sm-12"
+    >
+      <po-tag p-value="Versão 1.6"> </po-tag>
+    </div>
+  </div>
+  <div class="po-mt-2"></div>
+  <form [formGroup]="form!">
+    <po-container>
+    <div class="po-row po-mb-2 ">
+      <font class="po-font-text-large-bold">Seleção de Usuários</font>
+    </div>
+    <div class="po-row">
+      <div class="po-ml-4 po-mr-5 po-xl-4 po-lg-4 po-md-12 po-sm-12">
+        <po-combo
+          class=""
+          name="city"
+          (p-change)="getGroupRoles(form!.value.usuarioBase, 'usuarioBase')"
+          p-icon="ph ph-user-check"
+          p-label="Usuario Base"
+          p-placeholder="Selecione o Usuario Base"
+          formControlName="usuarioBase"
+          [p-options]="items"
+        >
+          <ng-template p-combo-option-template let-option>
+            <div class="po-row">
+              <po-avatar
+                class="po-sm-2 po-md-1 po-lg-1"
+                p-size="sm"
+              ></po-avatar>
+
+              <div class="po-sm-10 po-md-9 po-lg-11">
+                <div class="po-font-text-large-bold">{{ option.label }}</div>
+                <div class="po-font-text-smaller">
+                  Usuario: {{ option.value }}
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </po-combo>
+      </div>
+      <div class="po-xl-4 po-lg-4 po-md-12 po-sm-12">
+        <po-combo
+          class=""
+          name="city"
+          p-icon="ph ph-user-check"
+          p-label="Usuario Destino"
+          formControlName="usuarioDestino"
+          (p-change)="
+            getGroupRoles(form!.value.usuarioDestino, 'usuarioDestino')
+          "
+          p-placeholder="Selecione o Usuario Destino"
+          [p-options]="items"
+        >
+          <ng-template p-combo-option-template let-option>
+            <div class="po-row">
+              <po-avatar
+                class="po-sm-2 po-md-1 po-lg-1"
+                p-size="sm"
+              ></po-avatar>
+
+              <div class="po-sm-10 po-md-9 po-lg-11">
+                <div class="po-font-text-large-bold">{{ option.label }}</div>
+                <div class="po-font-text-smaller">
+                  Usuario: {{ option.value }}
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </po-combo>
+      </div>
+      <div class="po-mt-5 po-ml-4 po-xl-2 po-lg-2 po-md-12 po-sm-12">
+      <po-checkbox
+      name="createSubstitute"
+      p-label="Criar Substituto"
+      formControlName="createSubstitute"
+    ></po-checkbox>
+  </div>
+    </div>
+  </po-container>
+
+  <div class="po-mt-2">
+    <po-container>
+    
+      <div class="po-row">
+        <!-- Input para Solicitação De -->
+        <div class="po-ml-5 po-md-2 po-sm-12">
+          <po-input
+            p-label="Solicitação"
+            name="solicitacaoDe"
+            p-placeholder="De"
+            formControlName="solicitacaoDe"
+          ></po-input>
+        </div>
+    
+        <!-- Input para Solicitação Até -->
+        <div class="po-md-2 po-ml-4 po-sm-12">
+          <po-input
+            p-label="&nbsp;" 
+            name="solicitacaoAte"
+            p-placeholder="Até"
+            formControlName="solicitacaoAte"
+          ></po-input>
+        </div>
+    
+        <!-- Checkbox para Solicitações Abertas -->
+        <div class="po-mt-5 po-ml-4 po-md-3 po-sm-12">
+          <po-checkbox
+            name="solicitacoesAbertas"
+            p-label="Solicitações abertas"
+            formControlName="solicitacoesAbertas"
+          ></po-checkbox>
+        </div>
+    
+        <!-- Checkbox para Solicitações Pendentes -->
+        <div class="po-mt-5 po-ml-4 po-md-3 po-sm-12">
+          <po-checkbox
+            name="solicitacoesPendentes"
+            p-label="Solicitações pendentes"
+            formControlName="solicitacoesPendentes"
+          ></po-checkbox>
+        </div>
+      </div>
+
+    </po-container>
+  </div>
+  <div class="po-row">
+    <div class="po-md-1 po-sm-12 po-mt-4">
+      <po-button
+        p-label="Executar"
+        p-type="submit"
+        (p-click)="onSubmit()"
+        [p-disabled]="form!.invalid"
+      ></po-button>
+    </div>
+  </div>
+
+
+  <div class="po-mt-2">
+  <po-container>
+    <div class="Po-row po-mb-5">
+      <font class="po-font-text-large-bold">Grupos e Papéis</font>
+    </div>
+    <div class="po-row po-mt-5">
+      <!-- Widget para Usuario Base -->
+      <div class="po-ml-5 po-mr-5 po-xl-5 po-lg-5 po-md-12 po-sm-12">
+        <po-widget class="" p-title="Grupos - Usuario Base">
+          <div *ngFor="let grupo of ListaGruposUsuarioBase" class="po-text-center">
+            {{ grupo.value }} <!-- Exibe o valor do grupo do usuarioBase -->
+          </div>
+        </po-widget>
+      </div>
+    
+      <!-- Widget para Usuario Destino -->
+      <div class="po-xl-5 po-lg-5 po-md-12 po-sm-12">
+        <po-widget class="" p-title="Grupos - Usuario Destino">
+          <div *ngFor="let grupo of ListaGruposUsuarioDestino" class="po-text-center">
+            {{ grupo.value }} <!-- Exibe o valor do grupo do usuarioDestino -->
+          </div>
+        </po-widget>
+      </div>
+    </div>
+    <div class="po-row po-mt-5">
+      <!-- Widget para Usuario Base -->
+      <div class="po-ml-4 po-mr-5 po-xl-5 po-lg-5 po-md-12 po-sm-12">
+        <po-widget class="" p-title="Papéis - Usuario Base">
+          <div *ngFor="let grupo of ListaRoleUserBase" class="po-text-center">
+            {{ grupo.value }} <!-- Exibe o valor do grupo do usuarioBase -->
+          </div>
+        </po-widget>
+      </div>
+    
+      <!-- Widget para Usuario Destino -->
+      <div class="po-xl-4 po-lg-5 po-md-12 po-sm-12">
+        <po-widget class="" p-title="Papéis - Usuario Destino">
+          <div *ngFor="let grupo of ListaRoleUserDestino" class="po-text-center">
+            {{ grupo.value }} <!-- Exibe o valor do grupo do usuarioDestino -->
+          </div>
+        </po-widget>
+      </div>
+    </div>
+  </po-container>
+</div>
+
+    
+  </form>
+</po-page-default>
