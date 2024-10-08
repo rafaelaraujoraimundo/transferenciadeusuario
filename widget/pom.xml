@@ -2,7 +2,7 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>combio</groupId>
-    <artifactId>transferenciaUsuario</artifactId>
+    <artifactId>transferenciausuario</artifactId>
     <version>${revision}${changelist}</version>
     <packaging>war</packaging>
 
